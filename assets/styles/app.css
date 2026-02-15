@@ -1,3 +1,98 @@
+:root{
+    --gray: #525252;
+    --light-gray: #F5F5F7;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    scroll-behavior: smooth;
+}
+
 body {
-    background-color: skyblue;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 300;
+    scroll-behavior: smooth;
+}
+
+.nav{
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    position: relative; 
+    padding: 1.5rem 0;
+}
+
+.nav #center{
+    display: flex;
+    gap: 2rem;
+}
+
+.nav #right{
+    position: absolute; 
+    right: 1rem;
+}
+
+.nav #right img {
+    height: auto;
+    width: 30px;
+    transition: transform 0.6s ease; /* <--- změněno z width na transform */
+}
+
+.nav #right img:hover {
+    transform: scale(1.2);
+}
+
+.nav #center a{
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+    font-family: 'Montserrat';
+    font-weight: 600;
+}
+
+.nav #center a::after{
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    width: 0;
+    background-color: black;
+    transition: width 0.6s ease;
+}
+
+.nav #center a:hover::after {
+  width: 100%;
+}
+
+main {
+    flex: 1;
+}
+
+h1,h2,h3,h4{
+    font-family: 'Montserrat';
+}
+
+.main-sizing{
+    padding: 0 20px 0 20px;
+}
+
+footer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 4rem 0 1rem 0;
+    margin-top: auto;
+}
+
+footer p{
+    font-size: 0.75rem;
+    margin: 0;
 }

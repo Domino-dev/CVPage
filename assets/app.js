@@ -7,4 +7,16 @@ import './stimulus_bootstrap.js';
  */
 import './styles/app.css';
 
-console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');
+function initializeTrix() {
+    const textareas = document.querySelectorAll('textarea.trix-enabled');
+    textareas.forEach(textarea => {
+        const hiddenId = textarea.id;
+        const trix = document.createElement('trix-editor');
+        trix.setAttribute('input', hiddenId);
+        textarea.insertAdjacentElement('afterend', trix);
+    });
+}
+
+document.addEventListener('turbo:load', () => {
+    initializeTrix();
+});

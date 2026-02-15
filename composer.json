@@ -11,6 +11,8 @@
         "doctrine/doctrine-bundle": "^2.18",
         "doctrine/doctrine-migrations-bundle": "^3.7",
         "doctrine/orm": "^3.6",
+        "ehyiah/ux-quill": "^3.3",
+        "imagine/imagine": "^1.5",
         "phpdocumentor/reflection-docblock": "^5.6",
         "phpstan/phpdoc-parser": "^2.3",
         "symfony/asset": "7.4.*",
@@ -43,6 +45,7 @@
         "symfony/web-link": "7.4.*",
         "symfony/yaml": "7.4.*",
         "twig/extra-bundle": "^2.12|^3.0",
+        "twig/intl-extra": "^3.22",
         "twig/twig": "^2.12|^3.0"
     },
     "config": {
@@ -97,6 +100,7 @@
         }
     },
     "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "^4.3",
         "phpunit/phpunit": "^11.5",
         "symfony/browser-kit": "7.4.*",
         "symfony/css-selector": "7.4.*",
