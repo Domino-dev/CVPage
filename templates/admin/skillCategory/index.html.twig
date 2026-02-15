@@ -1,0 +1,21 @@
+{% extends 'admin/base.html.twig' %}
+{% block body %}
+    <a href='{{path('app_admin_skill_category_new')}}'>Create new skills</a>
+    <div id='skill-categories'>
+    {% for skillCategory in skillCategories %}
+        <div class='skill-category'>
+            <p>{{skillCategory.position}}</p>
+            <p>{{skillCategory.name}}</p>
+            {% for skill in skillCategory.skills %}
+                <p>{{skill.name}}</p>
+            {% endfor %}
+            <a href='{{ path('app_admin_skill_category_edit', {'id': skillCategory.id}) }}'>Edit</a>
+
+            <form method="POST" action="{{ path('app_admin_skill_category_delete', {'id': skillCategory.id}) }}" style="display:inline;" onsubmit="return confirm('Do you want to delete this experience?');">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ skillCategory.id) }}">
+                <button class="btn btn-danger btn-sm">Delete</button>
+            </form>
+        </div>
+    {% endfor %}
+    </div>
+{% endblock %}

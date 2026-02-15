@@ -1,0 +1,16 @@
+{{ form_start(form, { attr: { class: 'my-form' } }) }}
+    {{ form_row(form.position) }}
+    {{ form_row(form.name) }}
+    <div id="skills"
+        data-prototype="{{ form_widget(form.skills.vars.prototype)|e('html_attr') }}">
+        {% for skillForm in form.skills %}
+            <div class="skill-item">
+                {{ form_widget(skillForm) }}
+                <button type="button" class="remove-skill">Remove skill</button>
+            </div>
+        {% endfor %}
+    </div>
+
+    <button type="button" id="add-skill">Add skill</button>
+    {{ form_row(form.save, { label: submit_label|default('Save') }) }}
+{{ form_end(form) }}

@@ -24,6 +24,10 @@ class Skill
     #[ORM\Column]
     private ?\DateTime $created = null;
 
+    public function __construct(){
+        $this->created = new \DateTime();
+    }
+
     public function getId(): ?int
     {
         return $this->id;

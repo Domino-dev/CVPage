@@ -20,12 +20,15 @@ class SkillCategory
     private ?string $name = null;
 
     #[ORM\Column]
+    private int $position;
+
+    #[ORM\Column]
     private ?\DateTime $created = null;
 
     /**
      * @var Collection<int, Skill>
      */
-    #[ORM\OneToMany(targetEntity: Skill::class, mappedBy: 'skillCategory', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Skill::class, mappedBy: 'skillCategory', orphanRemoval: true, cascade: ['persist'])]
     private Collection $skills;
 
     public function __construct()
@@ -46,6 +49,16 @@ class SkillCategory
     public function setName(string $name): static
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getPosition(): int{
+        return $this->position;
+    }
+
+    public function setPosition(int $position): static{
+        $this->position = $position;
 
         return $this;
     }
