@@ -1,0 +1,10 @@
+{{ form_start(form, { attr: { class: 'my-form' } }) }}
+    {{ form_row(form.company) }}
+    {{ form_row(form.position) }}
+    {{ form_row(form.shortDescription) }}
+    {{ form_row(form.longDescription) }}
+    {{ form_row(form.dateFrom) }}
+    {{ form_row(form.dateTo) }}
+
+    {{ form_row(form.save, { label: submit_label|default('Save') }) }}
+{{ form_end(form) }}

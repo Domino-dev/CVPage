@@ -1,0 +1,14 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block body %}
+<h2>Experience</h2>
+<a href='{{path('app_admin_experience_new')}}'>Create new experience</a>
+<div id='experience'>
+{% for experienceSection in experience %}
+    <div class='experience-section'>
+        {{experienceSection.company}}
+        <a href='{{path('app_admin_experience_show',{'id':experienceSection.id})}}'>Detail</a>
+    </div>
+{% endfor %}
+</div>
+{% endblock %}

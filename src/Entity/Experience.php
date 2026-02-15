@@ -20,7 +20,7 @@ class Experience
     #[ORM\Column(name:'short_description',length: 255)]
     private ?string $shortDescription = null;
 
-    #[ORM\Column(name:'long_description',type: Types::TEXT)]
+    #[ORM\Column(name:'long_description',type: Types::TEXT, nullable:true)]
     private ?string $longDescription = null;
 
     #[ORM\Column(length: 255)]

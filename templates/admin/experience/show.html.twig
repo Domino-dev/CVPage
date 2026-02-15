@@ -1,0 +1,23 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Hello ExperienceController!{% endblock %}
+
+{% block body %}
+<div class="experience">
+    <label>Date: </label>
+    <p>{{experience.dateFrom|date('Y')}}-{{ experience.dateTo|date('Y')}}</p>
+    <label>Company: </label>
+    <p>{{experience.company}}</p>
+    <label>Position: </label>
+    <p>{{experience.position}}</p>
+    <label>Short desc.: </label>
+    <p>{{experience.shortDescription}}</p>
+    <label>Long desc.: </label>
+    {{experience.longDescription|raw}}
+    <a href={{path('app_admin_experience_edit', {'id': experience.id}) }}>Edit</a>
+    <form method="POST" action="{{ path('app_admin_experience_delete', {'id': experience.id}) }}" style="display:inline;" onsubmit="return confirm('Do you want to delete this experience?');">
+        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ experience.id) }}">
+        <button class="btn btn-danger btn-sm">Delete</button>
+    </form>
+</div>
+{% endblock %}

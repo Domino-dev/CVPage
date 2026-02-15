@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+<section class="article-sizing">
+    <div class="article">
+        <div class="article-content">
+            <div class='article-body'>
+                <h1>{{experience.company}}</h1>
+                <span>{{experience.dateFrom|date('Y')}}-{{experience.dateTo|date('Y')}}</span>
+                <h3>{{experience.position}}</h3>
+                <div class='article-content-short-description'>
+                    {{experience.shortDescription |raw}}
+                </div>
+                <div class='article-content-long-description'>
+                    {{experience.longDescription |raw}}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

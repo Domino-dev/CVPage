@@ -1,0 +1,8 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block body %}
+<a href='{{ path('app_admin_experience') }}'>Back</a>
+<div class="sizing">
+{{ include('admin/experience/_form.html.twig') }}
+</div>
+{% endblock %}
