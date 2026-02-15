@@ -35,13 +35,10 @@ class Project
     #[ORM\Column(name:'is_school_project', options:["default" => false])]
     private ?bool $isSchoolProject = null;
 
-    #[ORM\Column(name:'date_from',type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTime $dateFrom = null;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTime $date = null;
 
-    #[ORM\Column(name:'date_to',type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTime $dateTo = null;
-
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTime $created = null;
 
     public function getId(): ?int
@@ -121,25 +118,14 @@ class Project
         return $this;
     }
 
-    public function getDateFrom(): ?DateTime
+    public function getDate(): ?DateTime
     {
-        return $this->dateFrom;
+        return $this->date;
     }
 
-    public function setDateFrom(DateTime $dateFrom): static
+    public function setDate(DateTime $date): static
     {
-        $this->dateFrom = $dateFrom;
-        return $this;
-    }
-
-    public function getDateTo(): ?DateTime
-    {
-        return $this->dateTo;
-    }
-
-    public function setDateTo(DateTime $dateTo): static
-    {
-        $this->dateTo = $dateTo;
+        $this->date = $date;
         return $this;
     }
 

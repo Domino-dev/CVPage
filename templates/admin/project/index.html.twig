@@ -1,0 +1,13 @@
+{% extends 'admin/base.html.twig' %}
+{% block body %}
+    <a href='{{path('app_admin_project_new')}}'>Create new project</a>
+    <div id='projects-items'>
+    {% for project in projects %}
+        <div class='project-item'>
+        {{project.name}}
+        {{project.shortDescription}}
+        <a href='{{ path('app_admin_project_show',{id: project.id}) }}'>Detail</a>
+        </div>
+    {% endfor %}
+    </div>
+{% endblock %}

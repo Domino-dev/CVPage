@@ -1,0 +1,11 @@
+{{ form_start(form, { attr: { class: 'my-form' } }) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.isSchoolProject) }}
+    {{ form_row(form.date) }}
+    {{ form_row(form.shortDescription) }}
+    {{ form_row(form.longDescription) }}
+    {{ form_row(form.sImage) }}
+    {{ form_row(form.mImage) }}
+
+    {{ form_row(form.save, { label: submit_label|default('Save') }) }}
+{{ form_end(form) }}

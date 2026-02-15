@@ -1,0 +1,52 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block body %}
+
+<section class="article-sizing">
+    <div class="article">
+        <div class="article-content">
+            <div class="swiper">
+                <div class="swiper-wrapper">
+                    {% set images = project.mImage|split(';') %}
+                    {% for image in images %}
+                        {% if image %}
+                        <div class="swiper-slide">
+                            <a href="{{ asset('images/projects/' ~ image) }}"
+                            class="glightbox"
+                            data-gallery="project">
+                                <img src="{{ asset('images/projects/' ~ image) }}"
+                                    alt="{{ project.name }}">
+                            </a>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            </div>
+            <div class="tags">
+            {% if project.isSchoolProject %}
+                <p class='tag'>#School-project</p>
+            {% else %}
+                <p>#Private-project</p>
+            {% endif %}
+            </div>
+            <div class='article-body'>
+                <h1>{{project.name}}</h1>
+                <div class='article-content-short-description'>
+                    {{project.shortDescription}}
+                </div>
+                <div class='article-content-long-description'>
+                    {{project.longDescription |raw}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href={{path('app_admin_project_edit', {'id': project.id}) }}>Edit</a>
+    <form method="POST" action="{{ path('app_admin_project_delete', {'id': project.id}) }}" style="display:inline;" onsubmit="return confirm('Do you want to delete this project?');">
+        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ project.id) }}">
+        <button class="btn btn-danger btn-sm">Delete</button>
+    </form>
+</section>
+{% endblock %}
