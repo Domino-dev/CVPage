@@ -3,38 +3,25 @@
 
 <section class="article-sizing">
     <div class="article">
+        <div class="article-media">
+            <img src="{{ asset('images/projects/' ~ project.mImage) }}" alt="{{ project.name }}">
+            <div class="project-type-tag {{project.type.value}}">
+                <p>{{ project.type.value }}</p>
+            </div>
+        </div>
         <div class="article-content">
-            <div class="swiper">
-                <div class="swiper-wrapper">
-                    {% set images = project.mImage|split(';') %}
-                    {% for image in images %}
-                        {% if image %}
-                        <div class="swiper-slide">
-                            <a href="{{ asset('images/projects/' ~ image) }}"
-                            class="glightbox"
-                            data-gallery="project">
-                                <img src="{{ asset('images/projects/' ~ image) }}"
-                                    alt="{{ project.name }}">
-                            </a>
-                        </div>
-                        {% endif %}
+                <h1 class="article-title">{{project.name}}</h1>
+                {% set skills = project.skills|split(';') %}
+                {% if skills is not empty %}
+                <div class="tags">
+                    {% for skill in skills %}
+                        <p class='tag'>{{skill}}</p>
                     {% endfor %}
                 </div>
-
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
-            </div>
-            <div class="tags">
-            {% if project.isSchoolProject %}
-                <p class='tag'>#School-project</p>
-            {% else %}
-                <p>#Private-project</p>
-            {% endif %}
-            </div>
-            <div class='article-body'>
-                <h1>{{project.name}}</h1>
+                {% endif %}
+            <div class="article-body">
                 <div class='article-content-short-description'>
-                    {{project.shortDescription}}
+                    <p>{{project.shortDescription}}</p>
                 </div>
                 <div class='article-content-long-description'>
                     {{project.longDescription |raw}}

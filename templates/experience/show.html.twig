@@ -5,8 +5,8 @@
     <div class="article">
         <div class="article-content">
             <div class='article-body'>
-                <h1>{{experience.company}}</h1>
-                <span>{{experience.dateFrom|date('Y')}}-{{experience.dateTo|date('Y')}}</span>
+                <h1 class='article-body-headline'>{{experience.company}}</h1>
+                <span class='article-body-date'>{{experience.dateFrom|date('Y')}}-{{experience.dateTo|date('Y')}}</span>
                 <h3>{{experience.position}}</h3>
                 <div class='article-content-short-description'>
                     {{experience.shortDescription |raw}}

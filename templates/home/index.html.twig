@@ -22,9 +22,9 @@
     <div class="main-sizing">
         <section id="about-me">
             <div id="about-me-section">
-                <h1>O MNĚ</h1>
+                <h2>O MNĚ</h2>
                 <img src="/images/me.jpg" alt="me" class="scroll-reveal">
-                <h4 id="about-me-sub-header" class="scroll-reveal">{{profile.shortDescription}}</h4>
+                <h3 id="about-me-sub-header" class="scroll-reveal">{{profile.shortDescription}}</h3>
                 <div id="about-me-text" class="scroll-reveal">{{profile.longDescription|raw}}</div>
                 <a id="about-me-resume" class="scroll-reveal" href="#">STÁHNOUT ŽIVOTOPIS</a>
             </div>
@@ -55,53 +55,73 @@
             </ul>
         </div>
         <section id="skills-section">
-            <h1>DOVEDNOSTI</h1>
+            <h2>DOVEDNOSTI</h2>
             <div id="skills">
                 {% for skillCategory in skillCategories %}
                 <div class="skills">
                     {% for skill in skillCategory.skills %}
-                    <span class="skill">{{skill.name}}</span>
+                    <div class="skill">
+                        <span>{{skill.name}}</span>
+                    </div>
                     {% endfor %}
                 </div>
                 {% endfor %}
         </section>
         <section id="projects">
-            <h1>PROJEKTY</h1>
+            <h2>PROJEKTY</h2>
             <div id="projects-specific">
             {% for project in projects %}
                 <a href='{{path('app_project_show',{'id':project.id})}}' class="project">
                     <div class="project-img">
                         <img src="{{asset('images/projects/' ~ project.sImage)}}"/>
-                    </div>
-                    <div class="project-details">
-                        <div class="project-details-header">
-                            <h4>{{project.name}}</h4>
-                            <p class="project-details-description">{{project.shortDescription}}</p>
+                        <div class="project-type-tag {{project.type.value}}">
+                            <p>{{ project.type.value }}</p>
                         </div>
-                        <p class='project-detail-year'>{{project.date|date('Y')}}</p>
+                    </div>
+                    <div class="project-detail">
+                        <div class="project-detail-left">
+                            <h4>{{project.name}}</h4>
+
+                            {% set skills = project.skills|split(';') %}
+                            {% if skills is not empty %}
+                            <div class="tags">
+                                {% for skill in skills %}
+                                    <p class='tag'>{{skill}}</p>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                            <p class="project-detail-description">{{project.shortDescription|u.truncate(64, '...')}}</p>
+                        </div>
+                        <div class="project-detail-right">
+                            <p>{{project.date|date('Y')}}</p>
+                        </div>
                     </div>
                 </a>
             {% endfor %}
             </div>
         </section>
         <section id="experience">
-            <h1>VZDĚLÁNÍ A PRACOVNÍ ZKUŠENOSTI</h1>
+            <h2>VZDĚLÁNÍ A PRACOVNÍ ZKUŠENOSTI</h2>
             <div id="experience-items">
             {% for specificExperience in experience %}
                 {% if specificExperience.longDescription is not empty %}
-                <a href='{{path('app_experience_show',{'id':specificExperience.id})}}' class="experience-item">
-                    <p>{{specificExperience.dateFrom|date('Y')}}-{{specificExperience.dateTo|date('Y')}}</p>
-                    <h3>{{specificExperience.company}}</h3>
-                    <h4>{{specificExperience.position}}</h4>
-                    <p>{{specificExperience.shortDescription|raw}}</p>
-                </a>
+                    <a href="{{ path('app_experience_show',{'id':specificExperience.id}) }}" class="experience-item">
+                        <p class='date'>{{specificExperience.dateFrom|date('Y')}}-{{specificExperience.dateTo|date('Y')}}</p>
+                        <h3>{{specificExperience.company}}</h3>
+                        <h4>{{specificExperience.position}}</h4>
+                        <p>{{specificExperience.shortDescription|raw}}</p>
+
+                        <span class="external-icon">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </span>
+                    </a>
                 {% else %}
-                <div class="experience-item">
-                    <p>{{specificExperience.dateFrom|date('Y')}}-{{specificExperience.dateTo|date('Y')}}</p>
-                    <h3>{{specificExperience.company}}</h3>
-                    <h4>{{specificExperience.position}}</h4>
-                    <p>{{specificExperience.shortDescription|raw}}</p>
-                </div>
+                    <div class="experience-item">
+                        <p class='date'>{{specificExperience.dateFrom|date('Y')}}-{{specificExperience.dateTo|date('Y')}}</p>
+                        <h3>{{specificExperience.company}}</h3>
+                        <h4>{{specificExperience.position}}</h4>
+                        <p>{{specificExperience.shortDescription|raw}}</p>
+                    </div>
                 {% endif %}
             {% endfor %}
             </div>
