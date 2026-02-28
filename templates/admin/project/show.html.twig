@@ -5,32 +5,11 @@
 <section class="article-sizing">
     <div class="article">
         <div class="article-content">
-            <div class="swiper">
-                <div class="swiper-wrapper">
-                    {% set images = project.mImage|split(';') %}
-                    {% for image in images %}
-                        {% if image %}
-                        <div class="swiper-slide">
-                            <a href="{{ asset('images/projects/' ~ image) }}"
-                            class="glightbox"
-                            data-gallery="project">
-                                <img src="{{ asset('images/projects/' ~ image) }}"
-                                    alt="{{ project.name }}">
-                            </a>
-                        </div>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
+            <div class="image-box">
+                 <img src="{{ asset('images/projects/' ~ project.mImage) }}" alt="{{ project.name }}">
             </div>
             <div class="tags">
-            {% if project.isSchoolProject %}
-                <p class='tag'>#School-project</p>
-            {% else %}
-                <p>#Private-project</p>
-            {% endif %}
+                <p class='tag'>{{ project.type.value }}</p>
             </div>
             <div class='article-body'>
                 <h1>{{project.name}}</h1>

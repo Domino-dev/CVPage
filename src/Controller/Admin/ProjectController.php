@@ -50,10 +50,10 @@ final class ProjectController extends AbstractController
 
             $imagesUplaodDir = $this->getParameter('projects_uploads_directory');
             /** @var UploadedFile $image */
-            $mImages = $form->get('mImage')->getData();
+            $mImage = $form->get('mImage')->getData();
             $sImage = $form->get('sImage')->getData();
 
-            $projectService->createImages($project,$mImages,$sImage,$imagesUplaodDir);
+            $projectService->createImages($project,$mImage,$sImage,$imagesUplaodDir);
 
             $project->setCreated(new DateTime());
 
@@ -86,11 +86,11 @@ final class ProjectController extends AbstractController
 
             $imagesUploadDir = $this->getParameter('projects_uploads_directory');
             /** @var UploadedFile $image */
-            $mImages = $form->get('mImage')->getData();
+            $mImage = $form->get('mImage')->getData();
             $sImage = $form->get('sImage')->getData();
 
             $projectService->deleteImages($oldSImage,$oldMImage,$imagesUploadDir);
-            $projectService->createImages($project,$mImages,$sImage,$imagesUploadDir);
+            $projectService->createImages($project,$mImage,$sImage,$imagesUploadDir);
 
             $emi->flush();
 
@@ -109,10 +109,10 @@ final class ProjectController extends AbstractController
         $submittedToken = $request->request->get('_token');
 
         $imagesUploadDir = $this->getParameter('projects_uploads_directory');
-        $mImages = $project->getMImage();
+        $mImage = $project->getMImage();
         $sImage = $project->getSImage();
 
-        $projectService->deleteImages($mImages,$sImage,$imagesUploadDir);
+        $projectService->deleteImages($mImage,$sImage,$imagesUploadDir);
 
         if ($this->isCsrfTokenValid('delete' . $project->getId(),$submittedToken)){
             $emi->remove($project);
