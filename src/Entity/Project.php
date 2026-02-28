@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
+use App\Enum\ProjectType;
 use App\Repository\ProjectRepository;
 use DateTime;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints\Date;
 
 #[ORM\Entity(repositoryClass: ProjectRepository::class)]
 #[ORM\Table(name:'projects')]
@@ -32,8 +32,11 @@ class Project
     #[ORM\Column(name:'m_image',length: 255)]
     private ?string $mImage = null;
 
-    #[ORM\Column(name:'is_school_project', options:["default" => false])]
-    private ?bool $isSchoolProject = null;
+    #[ORM\Column(enumType: ProjectType::class)]
+    private ProjectType $type;
+
+    #[ORM\Column(length: 255)]
+    private string $skills;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTime $date = null;
@@ -75,6 +78,26 @@ class Project
         return $this->longDescription;
     }
 
+    public function getType(): ProjectType{
+        return $this->type;
+    }
+
+    public function setType(ProjectType $type): static{
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getSkills(): string{
+        return $this->skills;
+    }
+
+    public function setSkills(string $skills): static{
+        $this->skills = $skills;
+
+        return $this;
+    }
+
     public function setLongDescription(string $longDescription): static
     {
         $this->longDescription = $longDescription;
@@ -102,18 +125,6 @@ class Project
     public function setMImage(string $mImage): static
     {
         $this->mImage = $mImage;
-
-        return $this;
-    }
-
-    public function getIsSchoolProject(): bool
-    {
-        return $this->isSchoolProject;
-    }
-
-    public function setIsSchoolProject(bool $isSchoolProject): static
-    {
-        $this->isSchoolProject = $isSchoolProject;
 
         return $this;
     }
