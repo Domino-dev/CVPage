@@ -10,9 +10,9 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class ProjectService
 {
-    public function createImages(Project $project, ?array $mImages = [], ?UploadedFile $sImage, string $imagesUploadDir): void
+    public function createImages(Project $project, ?UploadedFile $mImage, ?UploadedFile $sImage, string $imagesUploadDir): void
     {
-        if (!empty($mImages) || !empty($sImage)) {
+        if (!empty($mImage) || !empty($sImage)) {
             $imagine = new GdImagine();
             
             if(!empty($sImage) && $sImage instanceof UploadedFile){
@@ -26,38 +26,25 @@ class ProjectService
                 $project->setSImage($sImageName);
             }
 
-            if(!empty($mImages)){
+            if(!empty($mImage)){                
+                $mImageName = $mImageName = 'm_'.uniqid().'.jpg';
+                $mImageImagine = $imagine->open($mImage->getPathname());
+                $mImageImagine->thumbnail(new Box(1200, 800), ImageInterface::THUMBNAIL_INSET)
+                ->save($imagesUploadDir.'/'.$mImageName,[
+                    'jpeg_quality' => 100,
+                    'jpeg_progressive' => true
+                ]);
 
-                usort($mImages, function(UploadedFile $a, UploadedFile $b) {
-                    return strcmp($a->getClientOriginalName(), $b->getClientOriginalName());
-                });
-
-                $mImageNames = [];
-                foreach($mImages as $mImage){
-                    $mImageNames[] = $mImageName = 'm_'.uniqid().'.jpg';
-                    $mImageImagine = $imagine->open($mImage->getPathname());
-                    $mImageImagine->thumbnail(new Box(1200, 800), ImageInterface::THUMBNAIL_INSET)
-                    ->save($imagesUploadDir.'/'.$mImageName,[
-                        'jpeg_quality' => 100,
-                        'jpeg_progressive' => true
-                    ]);
-                }
-
-                $project->setMImage(implode(';', $mImageNames));
+                $project->setMImage($mImageName);
             } 
         }
     }
 
-    public function deleteImages(string $mImages, string $sImage, string $imagesUplaodDir){
-        $mImages = !empty($mImages) ? explode(';',$mImages) : [];
-
-        foreach($mImages as $mImage){
-
-            if(!file_exists($imagesUplaodDir.'/'.$mImage)){
-                continue;
+    public function deleteImages(string $mImage, string $sImage, string $imagesUplaodDir){
+        if(!empty($mImage)){
+            if(file_exists($imagesUplaodDir.'/'.$mImage)){
+                unlink($imagesUplaodDir.'/'.$mImage);
             }
-
-            unlink($imagesUplaodDir.'/'.$mImage);
         }
 
         if(!empty($sImage)){
