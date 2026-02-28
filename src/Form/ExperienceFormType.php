@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Experience;
+use Ehyiah\QuillJsBundle\DTO\Fields\BlockField\HeaderGroupField;
+use Ehyiah\QuillJsBundle\DTO\Fields\BlockField\ListField;
 use Ehyiah\QuillJsBundle\DTO\Fields\InlineField\BoldField;
 use Ehyiah\QuillJsBundle\DTO\Fields\InlineField\ItalicField;
 use Ehyiah\QuillJsBundle\DTO\Fields\InlineField\LinkField;
@@ -24,10 +26,11 @@ class ExperienceFormType extends AbstractType
             ->add('longDescription', QuillType::class,[
                 'quill_options' => [
                     QuillGroup::build(
+                        new HeaderGroupField(),
                         new BoldField(),
                         new ItalicField(),
                         new LinkField(),
-                        // and many more
+                        new ListField('bullet')
                     ),
                 ],
             ])

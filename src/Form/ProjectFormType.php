@@ -3,22 +3,22 @@
 namespace App\Form;
 
 use App\Entity\Project;
-use Ehyiah\QuillJsBundle\DTO\Fields\BlockField\HeaderField;
+use App\Enum\ProjectType;
+use Ehyiah\QuillJsBundle\DTO\Fields\BlockField\HeaderGroupField;
+use Ehyiah\QuillJsBundle\DTO\Fields\BlockField\ListField;
 use Ehyiah\QuillJsBundle\DTO\Fields\InlineField\BoldField;
-use Ehyiah\QuillJsBundle\DTO\Fields\InlineField\ImageField;
 use Ehyiah\QuillJsBundle\DTO\Fields\InlineField\ItalicField;
 use Ehyiah\QuillJsBundle\DTO\Fields\InlineField\LinkField;
 use Ehyiah\QuillJsBundle\DTO\QuillGroup;
 use Ehyiah\QuillJsBundle\Form\QuillType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints as Assert;
 
 class ProjectFormType extends AbstractType
 {
@@ -30,30 +30,30 @@ class ProjectFormType extends AbstractType
             ->add('longDescription', QuillType::class,[
                 'quill_options' => [
                     QuillGroup::build(
-                        new HeaderField(HeaderField::HEADER_OPTION_1),
-                        new HeaderField(HeaderField::HEADER_OPTION_2),
+                        new HeaderGroupField(),
                         new BoldField(),
                         new ItalicField(),
-                        new LinkField()
+                        new LinkField(),
+                        new ListField('bullet')
                     ),
                 ],
             ])
             ->add('mImage',FileType::class, [
-                'multiple' => true,
+                'multiple' => false,
                 'required' => false,
-                'mapped' => false,
-                'constraints' => [
-                    new Assert\Count([
-                        'max' => 5,
-                        'maxMessage' => 'Můžeš nahrát maximálně {{ limit }} obrázky.',
-                    ]),
-                ],
+                'mapped' => false
             ])
             ->add('sImage',FileType::class, [
                 'required' => false,
             ])
-            ->add('isSchoolProject',CheckboxType::class, [
+            ->add('skills',FileType::class, [
                 'required' => false,
+            ])
+            ->add('type', ChoiceType::class, [
+                'choices' => ProjectType::cases(),
+                'choice_label' => fn(ProjectType $type) => $type->label(),
+                'choice_value' => fn(?ProjectType $type) => $type?->value,
+                'placeholder' => 'Vyber typ projektu',
             ])
             ->add('date',DateType::class)
             ->add('save',SubmitType::class,['label' => 'Save']);;
