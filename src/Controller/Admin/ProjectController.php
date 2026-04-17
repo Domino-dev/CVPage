@@ -88,9 +88,24 @@ final class ProjectController extends AbstractController
             /** @var UploadedFile $image */
             $mImage = $form->get('mImage')->getData();
             $sImage = $form->get('sImage')->getData();
+                 
+            if ($mImage) {
+                if ($oldMImage) {
+                    $projectService->deleteImages($oldMImage, '', $imagesUploadDir);
+                }
+            } else {
+                $project->setMImage($oldMImage);
+            }
 
-            $projectService->deleteImages($oldSImage,$oldMImage,$imagesUploadDir);
-            $projectService->createImages($project,$mImage,$sImage,$imagesUploadDir);
+            if ($sImage) {
+                if ($oldSImage) {
+                    $projectService->deleteImages('', $oldSImage, $imagesUploadDir);
+                }
+            } else {
+                $project->setSImage($oldSImage);
+            }
+
+            $projectService->createImages($project, $mImage, $sImage, $imagesUploadDir);
 
             $emi->flush();
 

@@ -1,13 +1,14 @@
 {% set home = path('app_home') %}
 <div class='nav'>
-    <div id='center'>
+    <div class="hamburger" onclick="toggleMenu()">☰</div>
+    <div class='center'>
         <a href="{{ home }}#about-me">O MNĚ</a>
         <a href="{{ home }}#skills-section">DOVEDNOSTI</a>
         <a href="{{ home }}#projects">PROJEKTY</a>
         <a href="{{ home }}#experience">PRACOVNÍ ZKUŠENOSTI</a>
     </div>
-    <div id='right'>
-        <a target="_blank" href='https://github.com/Domino-dev' ><img src="{{asset('images/github.png')}}" alt="gitHub"></a>
-        <a target="_blank" href='#'><img src="{{asset('images/linkedin.png')}}" alt="gitHub"></a>
+    <div class='right'>
+        <a target="_blank" href='https://github.com/Domino-dev' ><img src="{{asset('images/github.png')}}" alt="gitHub" id="git-hub-img"></a>
+        <a target="_blank" href='#'><img src="{{asset('images/linkedin.png')}}" alt="liknkedin" id="likedin-img"></a>
     </div>
 </div>

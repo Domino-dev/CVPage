@@ -39,16 +39,14 @@ class ProjectFormType extends AbstractType
                 ],
             ])
             ->add('mImage',FileType::class, [
-                'multiple' => false,
                 'required' => false,
-                'mapped' => false
+                'data_class' => null,
             ])
             ->add('sImage',FileType::class, [
                 'required' => false,
+                'data_class' => null,
             ])
-            ->add('skills',FileType::class, [
-                'required' => false,
-            ])
+            ->add('skills')
             ->add('type', ChoiceType::class, [
                 'choices' => ProjectType::cases(),
                 'choice_label' => fn(ProjectType $type) => $type->label(),

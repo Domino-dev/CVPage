@@ -1,17 +1,10 @@
-document.addEventListener('DOMContentLoaded', () => {
-    initSkillCollection();
-    addAnimation();
-});
-
-
 document.addEventListener('turbo:load', () => {
     initSkillCollection();
     addAnimation();
 });
 
-
-
 function initSkillCollection() {
+
     const collection = document.getElementById('skills');
     const addButton = document.getElementById('add-skill');
     if (!collection || !addButton) return;

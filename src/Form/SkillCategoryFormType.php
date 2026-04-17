@@ -2,7 +2,6 @@
 
 namespace App\Form;
 
-use App\Entity\Skill;
 use App\Entity\SkillCategory;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;

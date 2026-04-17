@@ -8,20 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
         addAnimation();
     }
-
-    new Swiper('.swiper', {
-        loop: true,
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },
-    });
-
-    GLightbox({
-        selector: '.glightbox',
-        zoomable: true,
-        touchNavigation: true,
-    });
 });
 
 document.addEventListener('turbo:load', () => {
@@ -30,20 +16,6 @@ document.addEventListener('turbo:load', () => {
     initializeAnchors();
     addAnimation();
     initializeScrollScale();
-
-    new Swiper('.swiper', {
-        loop: true,
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },
-    });
-
-    GLightbox({
-        selector: '.glightbox',
-        zoomable: true,
-        touchNavigation: true,
-    });
 });
 
 function initializeScrollScale() {
@@ -99,6 +71,8 @@ function initializeAnchors() {
 function addAnimation() {
     const scrollers = document.querySelectorAll(".scroller");
     scrollers.forEach(scroller => {
+        if (scroller.dataset.animated === "true") return;
+
         scroller.setAttribute('data-animated', true);
         const scrollerInner = scroller.querySelector('.scroller__inner');
         const scrollerContent = Array.from(scrollerInner.children);
