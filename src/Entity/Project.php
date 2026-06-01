@@ -110,7 +110,7 @@ class Project
         return $this->sImage;
     }
 
-    public function setSImage(string $sImage): static
+    public function setSImage(?string $sImage): static
     {
         $this->sImage = $sImage;
 
@@ -122,7 +122,7 @@ class Project
         return $this->mImage;
     }
 
-    public function setMImage(string $mImage): static
+    public function setMImage(?string $mImage): static
     {
         $this->mImage = $mImage;
 

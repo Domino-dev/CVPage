@@ -21,3 +21,5 @@
 
 # IDE and OS generated files
 *.vscode/
+.htpasswd
+public/.htaccess

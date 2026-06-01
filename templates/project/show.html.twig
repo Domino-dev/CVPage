@@ -1,8 +1,14 @@
 {% extends 'base.html.twig' %}
+{% block title %}
+{{ project.name }} | Dominik Štěpánek
+{% endblock %}
 {% block body %}
 
 <section class="article-sizing">
     <div class="article">
+        <div class='back-button-wrapper'>
+            <a href='{{ path('app_home') }}#projects' class="button back"><span>←</span></a>
+        </div>
         <div class="article-media">
             <img src="{{ asset('images/projects/' ~ project.mImage) }}" alt="{{ project.name }}">
             <div class="project-type-tag {{project.type.value}}">

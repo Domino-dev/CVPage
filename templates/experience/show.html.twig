@@ -1,8 +1,14 @@
 {% extends 'base.html.twig' %}
+{% block title %}
+Zkušenosti | Dominik Štěpánek
+{% endblock %}
 {% block body %}
 
 <section class="article-sizing">
     <div class="article">
+        <div class='back-button-wrapper'>
+            <a href='{{ path('app_home') }}#experience' class="button back"><span>←</span></a>
+        </div>
         <div class="article-content">
             <h1 class='article-title'>{{experience.company}}</h1>
             <h2>{{experience.position}}</h2>
