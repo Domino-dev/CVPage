@@ -30,7 +30,6 @@
                 <img src="/images/me.jpg" alt="me" class="scroll-reveal">
                 <h3 id="about-me-sub-header" class="scroll-reveal">{{profile.shortDescription}}</h3>
                 <div id="about-me-text" class="scroll-reveal">{{profile.longDescription|raw}}</div>
-                <a id="about-me-resume" class="scroll-reveal" href="#">STÁHNOUT ŽIVOTOPIS</a>
             </div>
         </section>
         <div class="scroller first">
@@ -75,7 +74,7 @@
             <h2>PROJEKTY</h2>
             <div id="projects-specific">
             {% for project in projects %}
-                <a href='{{path('app_project_show',{'id':project.id})}}' class="project">
+                <a href='{{path('app_project_show',{'slug':project.slug})}}' class="project">
                     <div class="project-img">
                         <img src="{{asset('images/projects/' ~ project.sImage)}}"/>
                         <div class="project-type-tag {{project.type.value}}">
@@ -108,7 +107,7 @@
             <div id="experience-items">
             {% for specificExperience in experience %}
                 {% if specificExperience.longDescription is not empty %}
-                    <a href="{{ path('app_experience_show',{'id':specificExperience.id}) }}" class="experience-item">
+                    <a href="{{ path('app_experience_show',{'slug':specificExperience.slug}) }}" class="experience-item">
                         <p class='date'>{{specificExperience.dateFrom|date('Y')}}-{{specificExperience.dateTo|date('Y')}}</p>
                         <h3>{{specificExperience.company}}</h3>
                         <h4>{{specificExperience.position}}</h4>

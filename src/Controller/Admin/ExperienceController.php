@@ -5,9 +5,9 @@ namespace App\Controller\Admin;
 use App\Entity\Experience;
 use App\Form\ExperienceFormType;
 use App\Repository\ExperienceRepository;
-use DateTime;
-use DateTimeImmutable;
+use App\Service\SlugService;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,6 +18,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 #[IsGranted('ROLE_USER')]
 final class ExperienceController extends AbstractController
 {
+
     #[Route('/admin/experience', name: 'app_admin_experience')]
     public function index(ExperienceRepository $experienceRepository): Response
     {
@@ -26,15 +27,15 @@ final class ExperienceController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/experience/{id<\d+>}', name: 'app_admin_experience_show')]
-    public function show(Experience $experience): Response{
+    #[Route('/admin/experience/{slug}', name: 'app_admin_experience_show')]
+    public function show(#[MapEntity(mapping: ['slug' => 'slug'])] Experience $experience): Response{
         return $this->render('admin/experience/show.html.twig', [
             'experience' => $experience
         ]);
     }
 
     #[Route('/admin/experience/new', name:'app_admin_experience_new')]
-    public function new(Request $request, EntityManagerInterface $emi): Response{
+    public function new(SlugService $slugService, Request $request, EntityManagerInterface $emi): Response{
 
         $experience = new Experience();
 
@@ -44,6 +45,8 @@ final class ExperienceController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()){
 
+            $experience->setSlug($slugService->generateUnique($form->get('company')->getData(),Experience::class));
+
             $experience->setCreated(new \DateTime());
 
             $emi->persist($experience);
@@ -52,7 +55,7 @@ final class ExperienceController extends AbstractController
             $this->addFlash('success', 'Experience has been successfully created!');
 
             return $this->redirectToRoute('app_admin_experience_show',[
-                'id' => $experience->getId(),
+                'slug' => $experience->getSlug(),
             ]);
         }
 
@@ -62,19 +65,21 @@ final class ExperienceController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/experience/edit/{id<\d+>}', name: 'app_admin_experience_edit')]
-    public function edit(Experience $experience, Request $request, EntityManagerInterface $emi){
+    #[Route('/admin/experience/edit/{slug}', name: 'app_admin_experience_edit')]
+    public function edit(#[MapEntity(mapping: ['slug' => 'slug'])] Experience $experience, SlugService $slugService, Request $request, EntityManagerInterface $emi){
         $form = $this->createForm(ExperienceFormType::class,$experience);
 
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
 
+            $experience->setSlug($slugService->generateUnique($form->get('company')->getData(),Experience::class));
+
             $emi->flush();
 
             $this->addFlash('success', 'The experience has been successfully updated!');
 
-            return $this->redirectToRoute('app_admin_experience_show',['id' => $experience->getId()]);
+            return $this->redirectToRoute('app_admin_experience_show',['slug' => $experience->getSlug()]);
         }
 
         return $this->render('/admin/experience/edit.html.twig',[
@@ -82,11 +87,11 @@ final class ExperienceController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/experience/delete/{id<\d+>}',name: 'app_admin_experience_delete', methods: ['POST'])]
-    public function deleteProject(Request $request,Experience $experience, EntityManagerInterface $emi):RedirectResponse{
+    #[Route('/admin/experience/delete/{slug}',name: 'app_admin_experience_delete', methods: ['POST'])]
+    public function deleteProject(Request $request,#[MapEntity(mapping: ['slug' => 'slug'])] Experience $experience, EntityManagerInterface $emi):RedirectResponse{
         $submittedToken = $request->request->get('_token');
 
-        if ($this->isCsrfTokenValid('delete' . $experience->getId(),$submittedToken)){
+        if ($this->isCsrfTokenValid('delete' . $experience->getSlug(),$submittedToken)){
             $emi->remove($experience);
             $emi->flush();
 

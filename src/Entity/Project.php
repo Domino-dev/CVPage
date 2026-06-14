@@ -18,13 +18,16 @@ class Project
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $name = null;
+    private string $name;
 
     #[ORM\Column(name:'short_description',length: 255)]
     private ?string $shortDescription = null;
 
     #[ORM\Column(name:'long_description',type: Types::TEXT)]
     private ?string $longDescription = null;
+
+    #[ORM\Column(name:'slug',length: 255)]
+    private string $slug;
 
     #[ORM\Column(name:'s_image',length: 255)]
     private ?string $sImage = null;
@@ -49,7 +52,7 @@ class Project
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }
@@ -78,6 +81,23 @@ class Project
         return $this->longDescription;
     }
 
+    public function setLongDescription(string $longDescription): static
+    {
+        $this->longDescription = $longDescription;
+
+        return $this;
+    }
+
+    public function getSlug(): string{
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): static{
+        $this->slug = $slug;
+
+        return $this;
+    }
+
     public function getType(): ProjectType{
         return $this->type;
     }
@@ -94,13 +114,6 @@ class Project
 
     public function setSkills(string $skills): static{
         $this->skills = $skills;
-
-        return $this;
-    }
-
-    public function setLongDescription(string $longDescription): static
-    {
-        $this->longDescription = $longDescription;
 
         return $this;
     }

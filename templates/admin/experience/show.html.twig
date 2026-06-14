@@ -14,9 +14,9 @@
     <p>{{experience.shortDescription}}</p>
     <label>Long desc.: </label>
     {{experience.longDescription|raw}}
-    <a href={{path('app_admin_experience_edit', {'id': experience.id}) }}>Edit</a>
-    <form method="POST" action="{{ path('app_admin_experience_delete', {'id': experience.id}) }}" style="display:inline;" onsubmit="return confirm('Do you want to delete this experience?');">
-        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ experience.id) }}">
+    <a href={{path('app_admin_experience_edit', {'slug': experience.slug}) }}>Edit</a>
+    <form method="POST" action="{{ path('app_admin_experience_delete', {'slug': experience.slug}) }}" style="display:inline;" onsubmit="return confirm('Do you want to delete this experience?');">
+        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ experience.slug) }}">
         <button class="btn btn-danger btn-sm">Delete</button>
     </form>
 </div>

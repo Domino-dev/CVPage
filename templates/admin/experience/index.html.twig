@@ -7,7 +7,7 @@
 {% for experienceSection in experience %}
     <div class='experience-section'>
         {{experienceSection.company}}
-        <a href='{{path('app_admin_experience_show',{'id':experienceSection.id})}}'>Detail</a>
+        <a href='{{path('app_admin_experience_show',{'slug':experienceSection.slug})}}'>Detail</a>
     </div>
 {% endfor %}
 </div>

@@ -6,7 +6,7 @@
         <div class='project-item'>
         {{project.name}}
         {{project.shortDescription}}
-        <a href='{{ path('app_admin_project_show',{id: project.id}) }}'>Detail</a>
+        <a href='{{ path('app_admin_project_show',{slug: project.slug}) }}'>Detail</a>
         </div>
     {% endfor %}
     </div>

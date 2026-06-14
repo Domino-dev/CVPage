@@ -15,13 +15,16 @@ class Experience
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $company = null;
+    private string $company;
 
     #[ORM\Column(name:'short_description',length: 255)]
     private ?string $shortDescription = null;
 
     #[ORM\Column(name:'long_description',type: Types::TEXT, nullable:true)]
     private ?string $longDescription = null;
+
+    #[ORM\Column(name:'slug',length: 255)]
+    private string $slug;
 
     #[ORM\Column(length: 255)]
     private ?string $position = null;
@@ -40,7 +43,7 @@ class Experience
         return $this->id;
     }
 
-    public function getCompany(): ?string
+    public function getCompany(): string
     {
         return $this->company;
     }
@@ -72,6 +75,16 @@ class Experience
     public function setLongDescription(string $longDescription): static
     {
         $this->longDescription = $longDescription;
+
+        return $this;
+    }
+
+    public function getSlug(): string{
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): static{
+        $this->slug = $slug;
 
         return $this;
     }

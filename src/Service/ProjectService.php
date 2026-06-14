@@ -48,7 +48,9 @@ class ProjectService
         }
 
         if(!empty($sImage)){
-            unlink($imagesUplaodDir.'/'.$sImage);
+            if(file_exists($imagesUplaodDir.'/'.$sImage)){
+                unlink($imagesUplaodDir.'/'.$sImage);
+            }
         }
     }
 }
